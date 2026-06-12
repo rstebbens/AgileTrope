@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Coaching AI Trope Mashup Generator</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background: #111827;
+  color: white;
+  margin: 0;
+  min-height: 100vh;
+}
+
+  .app {
+  text-align: center;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  box-sizing: border-box;
+}
+
+    h1 {
+  font-size: clamp(28px, 6vw, 42px);
+  margin: 0 0 10px;
+}
+
+.subtitle {
+  opacity: 0.7;
+  margin-bottom: 24px;
+  font-size: clamp(14px, 3vw, 18px);
+}
+
+   .wheels {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  align-items: stretch;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+    .wheel {
+      background: #1f2937;
+      border: 3px solid #374151;
+      border-radius: 24px;
+      width: 300px;
+      height: 160px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+      transition: transform 0.2s ease;
+    }
+
+    .spinning {
+      animation: wobble 0.25s infinite;
+    }
+
+    @keyframes wobble {
+      0% { transform: rotate(-2deg) scale(1.02); }
+      50% { transform: rotate(2deg) scale(1.05); }
+      100% { transform: rotate(-2deg) scale(1.02); }
+    }
+
+   button {
+  background: #22c55e;
+  color: #052e16;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 26px;
+  font-size: clamp(16px, 4vw, 20px);
+  font-weight: bold;
+  cursor: pointer;
+  max-width: 100%;
+}
+
+    button:hover {
+      background: #4ade80;
+    }
+
+  .result {
+  margin-top: 24px;
+  background: #0f172a;
+  border: 2px dashed #64748b;
+  border-radius: 18px;
+  padding: 22px;
+  font-size: clamp(20px, 5vw, 28px);
+  line-height: 1.35;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+
+@media (max-width: 600px) {
+  .app {
+    padding: 18px 12px;
+  }
+
+  .wheels {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .wheel {
+    width: 100%;
+    min-height: 110px;
+  }
+
+  .result {
+    padding: 18px;
+  }
+}
+
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="app">
+    <h1>AI Coaching Mashup Generator</h1>
+    <div class="subtitle">Spin the wheels. Generate peak corporate vapour.</div>
+
+   <div class="wheels" role="group" aria-label="AI trope wheels">
+      <div id="wheel1" class="wheel">You're right to push back...</div>
+      <div id="wheel2" class="wheel">Let's lean into ambiguity.</div>
+    </div>
+
+    <button onclick="spin()">Spin the Nonsense</button>
+
+    <div id="result" class="result">
+      You're right to push back. Let's lean into ambiguity.
+    </div>
+  </div>
+
+  <script>
+   const openings = [
+"You're right to push back on...",
+"What I'm hearing is...",
+"The real opportunity here is...",
+"We need to be intentional about...",
+"Let's zoom out and consider...",
+"I'd challenge us to think differently about...",
+"I'm curious about...",
+"Rather than jumping straight to solutions...",
+"If we take a systems-thinking perspective on...",
+"We may be conflating...",
+"Can we unpack...",
+"I wonder whether...",
+"We should spend some time exploring...",
+"There's a tension between...",
+"Before we solutionise...",
+"Let's create some space around...",
+"At a strategic level...",
+"At an operational level...",
+"At the end of the day...",
+"If we're honest with ourselves...",
+"What success looks like for me is...",
+"The question I'd be asking is...",
+"I think there's a bigger conversation about...",
+"Let's lean into...",
+"Can we get comfortable with...",
+"What problem are we really trying to solve with...",
+"I'm not sure we're optimising for...",
+"I think we're still anchored to...",
+"We should challenge some of our assumptions around...",
+"I'd like to reframe...",
+"Perhaps the narrative needs to shift from...",
+"I think we're seeing symptoms rather than causes in...",
+"Let's avoid boiling the ocean with...",
+"The data appears to suggest...",
+"The pattern I'm noticing is...",
+"Let's not lose sight of...",
+"I'd encourage us to think holistically about...",
+"We need to move beyond discussions of...",
+"One thing I'd offer is...",
+"The underlying challenge seems to be...",
+"Can we separate signal from noise in...",
+"What's emerging for me is...",
+"The elephant in the room might be...",
+"I think we're asking the wrong question about...",
+"Let's focus less on the mechanics of...",
+"We need greater clarity around...",
+"What I'd hate to see happen is...",
+"I think we're underestimating...",
+"The opportunity cost of ignoring...",
+"We should pause and reflect on..."
+];
+
+   const tropes = [
+"creating alignment around our strategic north star.",
+"unlocking value at scale.",
+"driving meaningful stakeholder engagement.",
+"building a culture of continuous improvement.",
+"operationalising organisational agility.",
+"leveraging cross-functional synergies.",
+"enabling outcome-based decision making.",
+"fostering psychological safety.",
+"accelerating the transformation journey.",
+"empowering teams closer to the work.",
+"driving measurable business outcomes.",
+"maximising customer-centric value streams.",
+"creating sustainable feedback loops.",
+"enhancing delivery predictability.",
+"moving from outputs to outcomes.",
+"building a high-performing culture.",
+"driving strategic alignment.",
+"creating a shared understanding of success.",
+"enabling scalable innovation.",
+"challenging legacy ways of working.",
+"improving flow efficiency.",
+"reducing friction in the delivery ecosystem.",
+"unlocking latent organisational capability.",
+"creating transparency across the value chain.",
+"breaking down silos.",
+"driving enterprise-wide visibility.",
+"embedding continuous learning.",
+"aligning execution to strategy.",
+"improving strategic throughput.",
+"building resilient operating models.",
+"driving customer obsession.",
+"creating high-value conversations.",
+"strengthening our governance framework.",
+"enabling data-driven insights.",
+"building trust-based collaboration.",
+"improving organisational effectiveness.",
+"maximising return on effort.",
+"creating a culture of ownership.",
+"driving transformational outcomes.",
+"elevating our ways of working.",
+"improving decision velocity.",
+"accelerating value realisation.",
+"unlocking organisational potential.",
+"creating end-to-end visibility.",
+"driving business agility at scale.",
+"future-proofing our operating model.",
+"establishing sustainable delivery practices.",
+"building alignment across stakeholder groups.",
+"creating strategic optionality.",
+"unlocking synergies across the portfolio."
+];
+
+    function randomItem(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    function spin() {
+      const wheel1 = document.getElementById("wheel1");
+      const wheel2 = document.getElementById("wheel2");
+      const result = document.getElementById("result");
+
+      wheel1.classList.add("spinning");
+      wheel2.classList.add("spinning");
+
+      let spins = 0;
+      const interval = setInterval(() => {
+        wheel1.textContent = randomItem(openings);
+        wheel2.textContent = randomItem(tropes);
+        spins++;
+
+        if (spins > 18) {
+          clearInterval(interval);
+
+          const finalOpening = randomItem(openings);
+          const finalTrope = randomItem(tropes);
+
+          wheel1.textContent = finalOpening;
+          wheel2.textContent = finalTrope;
+
+          result.textContent = `${finalOpening}. ${finalTrope}`;
+
+          wheel1.classList.remove("spinning");
+          wheel2.classList.remove("spinning");
+        }
+      }, 90);
+    }
+  </script>
+
+</body>
+</html>
