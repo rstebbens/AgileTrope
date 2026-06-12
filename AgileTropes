@@ -133,7 +133,6 @@
     <div id="result" class="result">
       You're right to push back. Let's lean into ambiguity.
     </div>
-<button onclick="createBadge()">Create LinkedIn Badge</button>
 <canvas id="badgeCanvas" width="1200" height="630" style="display:none;"></canvas>
   </div>
 <script>
